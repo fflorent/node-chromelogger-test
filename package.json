@@ -1,0 +1,16 @@
+{
+  "name": "node-chromelogger-test",
+  "version": "0.0.1",
+  "engines": {
+    "node" : "> 0.8.0"
+  },
+  "description": "A test for ChromeLogger Node.js module",
+  "license": "MIT",
+  "dependencies": {
+    "chromelogger": "1.1.1"
+  },
+  "repository": {
+    "type" : "git",
+    "url": "https://github.com/fflorent/node-chromelogger-test.git"
+  }
+}
