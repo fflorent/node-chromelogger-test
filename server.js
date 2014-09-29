@@ -1,15 +1,35 @@
 var chromelogger = require('chromelogger');
 var http = require('http');
+var fs = require('fs');
 
-var server = http.createServer();
+fs.readFile('index.html', function (err, html) {
+  if (err) {
+    throw err;
+  }
 
-server.on('request', chromelogger.middleware);
+  var server = http.createServer();
 
-server.on('request', function(req, res) {
-  res.chrome.log('Hello from Node.js %s', process.version);
-  res.chrome.log('%cUsing colors with objects ? %o', 'color: green', {toto: "ok"});
+  server.on('request', chromelogger.middleware);
 
-  res.end('Hello World');
+  server.on('request', function(req, res) {
+    res.chrome.log('Hello from Node.js %s end', process.version);
+    res.chrome.log('First number %d and second %d end', 1, 2);
+    res.chrome.error('An error');
+
+    var data = {
+      name: "John",
+      age: "37",
+      children: [
+        {name: "Bob"},
+        {name: "David"},
+      ]
+    }
+
+    res.chrome.log('%cUsing colors with objects ? %o end', 'color: green', data);
+
+    res.write(html);
+    res.end();
+  });
+
+  server.listen(7357);
 });
-
-server.listen(7357);
